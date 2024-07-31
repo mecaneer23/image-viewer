@@ -4,25 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Viewer</title>
-    <style>
-        img {
-            display: none;
-            height: min(95vh, 95vw);
-        }
-    </style>
 </head>
 <body>
     <input type="file" id="source" accept="image/png, image/jpeg" />
-    <img id="image" alt="Invalid image provided">
     <script>
         const source = document.getElementById("source");
-        const image = document.getElementById("image");
-
+        function run() {
+            if (source.files.length > 0) {
+                window.location.href = URL.createObjectURL(source.files[0]);
+            }
+        }
         source.addEventListener("change", () => {
-            image.style.display = "block";
-            const url = URL.createObjectURL(event.target.files[0]);
-            image.src = url;
-            window.location.href = url;
+            run();
+        });
+        window.addEventListener("load", () => {
+            run();
         });
     </script>
 </body>
